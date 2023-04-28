@@ -1,6 +1,6 @@
 const keytar = require('keytar')
 
-const SERVICE_NAME = 'agent-gpt-app'
+const SERVICE_NAME = 'agent-gpt-electron'
 const ACCOUNT_NAME = 'user-openai-key'
 
 export async function saveUserKey(key: string) {

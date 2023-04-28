@@ -3,7 +3,7 @@ import { useLocation } from 'wouter'
 import { FaBars, FaCog, FaGithub, FaQuestionCircle, FaRobot } from 'react-icons/fa'
 import clsx from 'clsx'
 
-const Drawer = ({ showHelp, showSettings }: { showHelp: () => void; showSettings: () => void }) => {
+const Drawer = ({ showSettings }: { showSettings: () => void }) => {
   const [agents, setAgents] = useState<any[]>([])
   const [showDrawer, setShowDrawer] = useState(false)
   const [, navigate] = useLocation()
@@ -71,11 +71,11 @@ const Drawer = ({ showHelp, showSettings }: { showHelp: () => void; showSettings
 
         <div className="flex flex-col gap-1">
           <hr className="my-2 border-gray-600/10" />
-          <DrawerItem icon={<FaQuestionCircle />} text="Help" onClick={showHelp} />
+          {/* <DrawerItem icon={<FaQuestionCircle />} text="Help" onClick={showHelp} /> */}
           <DrawerItem icon={<FaCog />} text="Settings" onClick={showSettings} />
           <DrawerItem
             icon={<FaGithub />}
-            text="GitHub"
+            text="Github AutoGPT"
             href="https://github.com/reworkd/AgentGPT"
             target="_blank"
           />

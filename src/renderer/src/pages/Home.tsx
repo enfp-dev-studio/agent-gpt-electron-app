@@ -8,7 +8,6 @@ import { FaRobot, FaStar } from 'react-icons/fa'
 import { VscLoading } from 'react-icons/vsc'
 import AutonomousAgent from '../components/AutonomousAgent'
 import Expand from '../components/motions/expand'
-import HelpDialog from '../components/HelpDialog'
 import { SettingsDialog } from '../components/SettingsDialog'
 import { TaskWindow } from '../components/TaskWindow'
 import type { Message } from '../types/agentTypes'
@@ -98,24 +97,20 @@ const Home = () => {
 
   return (
     <DefaultLayout>
-      <HelpDialog show={showHelpDialog} close={() => setShowHelpDialog(false)} />
       <SettingsDialog
         customSettings={[settings, saveSettings]}
         show={showSettingsDialog}
         close={() => setShowSettingsDialog(false)}
       />
       <main className="flex min-h-screen flex-row">
-        <Drawer
-          showHelp={() => setShowHelpDialog(true)}
-          showSettings={() => setShowSettingsDialog(true)}
-        />
+        <Drawer showSettings={() => setShowSettingsDialog(true)} />
         <div
           id="content"
           className="z-10 flex min-h-screen w-full items-center justify-center p-2 px-2 sm:px-4 md:px-10"
         >
           <div
             id="layout"
-            className="flex h-full w-full max-w-screen-lg flex-col items-center justify-between gap-3 py-5 md:justify-center"
+            className="flex h-full w-full max-w-screen-lg flex-col items-center justify-between gap-3 md:justify-center"
           >
             {/* <div id="title" className="relative flex flex-col items-center font-mono">
               <div className="flex flex-row items-start shadow-2xl">
@@ -134,7 +129,7 @@ const Home = () => {
 
             <Expand className="flex w-full flex-row">
               <ChatWindow
-                className="sm:mt-4"
+                className=""
                 messages={messages}
                 title={'AgentGPTApp'}
                 showDonation={true}
