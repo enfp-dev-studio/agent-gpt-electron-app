@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'wouter'
-import {
-  FaBars,
-  FaCog,
-  FaGithub,
-  FaQuestionCircle,
-  FaRobot} from 'react-icons/fa'
+import { FaBars, FaCog, FaGithub, FaQuestionCircle, FaRobot } from 'react-icons/fa'
 import clsx from 'clsx'
 
 const Drawer = ({ showHelp, showSettings }: { showHelp: () => void; showSettings: () => void }) => {
@@ -19,6 +14,7 @@ const Drawer = ({ showHelp, showSettings }: { showHelp: () => void; showSettings
 
   useEffect(() => {
     const getAgents = async () => {
+      console.log(window.electron)
       const agents = await window.api.getAllAgents()
       setAgents(agents)
     }

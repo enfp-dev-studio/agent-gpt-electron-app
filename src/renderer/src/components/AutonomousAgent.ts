@@ -43,6 +43,7 @@ class AutonomousAgent {
     // Initialize by getting tasks
     try {
       this.tasks = await this.getInitialTasks()
+      console.log(this.tasks)
       for (const task of this.tasks) {
         await new Promise((r) => setTimeout(r, TIMOUT_SHORT))
         this.sendTaskMessage(task)
@@ -127,10 +128,8 @@ class AutonomousAgent {
 
   async getInitialTasks(): Promise<string[]> {
     if (this.shouldRunClientSide()) {
-      if (!import.meta.env.VITE_PUBLIC_FF_MOCK_MODE_ENABLED) {
-        await testConnection(this.modelSettings)
-      }
-      return await AgentService.startGoalAgent(this.modelSettings, this.goal)
+      await testConnection(this.modelSettings)
+      return AgentService.startGoalAgent(this.modelSettings, this.goal)
     }
 
     const data = {
@@ -274,6 +273,7 @@ class AutonomousAgent {
 
 const testConnection = async (modelSettings: ModelSettings) => {
   const userKey = await window.api.getUserKey()
+  console.log(userKey)
   if (!userKey) {
     throw new Error('No API key found')
   }

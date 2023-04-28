@@ -1,12 +1,10 @@
 import React, { useEffect, useRef } from 'react'
-import Badge from '../components/Badge'
 import DefaultLayout from '../layout/default'
 import ChatWindow from '../components/ChatWindow'
 import Drawer from '../components/Drawer'
 import Input from '../components/Input'
 import Button from '../components/Button'
 import { FaRobot, FaStar } from 'react-icons/fa'
-import PopIn from '../components/motions/popin'
 import { VscLoading } from 'react-icons/vsc'
 import AutonomousAgent from '../components/AutonomousAgent'
 import Expand from '../components/motions/expand'
@@ -31,17 +29,13 @@ const Home = () => {
   const { saveAgent } = useAgent()
 
   useEffect(() => {
-    const key = 'agentgpt-modal-opened-new'
-    const savedModalData = localStorage.getItem(key)
-
-    // Momentarily always run
-    setTimeout(() => {
-      if (savedModalData == null) {
-        setShowHelpDialog(true)
+    const checkUserKey = async () => {
+      const key = await window.api.getUserKey()
+      if (!key) {
+        setShowSettingsDialog(true)
       }
-    }, 3000)
-
-    localStorage.setItem(key, JSON.stringify(true))
+    }
+    checkUserKey()
   }, [])
 
   const nameInputRef = useRef<HTMLInputElement>(null)
@@ -123,7 +117,7 @@ const Home = () => {
             id="layout"
             className="flex h-full w-full max-w-screen-lg flex-col items-center justify-between gap-3 py-5 md:justify-center"
           >
-            <div id="title" className="relative flex flex-col items-center font-mono">
+            {/* <div id="title" className="relative flex flex-col items-center font-mono">
               <div className="flex flex-row items-start shadow-2xl">
                 <span className="text-4xl font-bold text-[#C0C0C0] xs:text-5xl sm:text-6xl">
                   Agent
@@ -136,7 +130,7 @@ const Home = () => {
               <div className="mt-1 text-center font-mono text-[0.7em] font-bold text-white">
                 <p>Assemble, configure, and deploy autonomous AI Agents in your browser.</p>
               </div>
-            </div>
+            </div> */}
 
             <Expand className="flex w-full flex-row">
               <ChatWindow

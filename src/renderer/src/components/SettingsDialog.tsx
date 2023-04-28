@@ -28,6 +28,16 @@ export const SettingsDialog: React.FC<{
     setSettings(customSettings)
   }, [customSettings, close])
 
+  useEffect(() => {
+    const getUserKey = async () => {
+      const key = await window.api.getUserKey()
+      if (key) {
+        setApiKey(key)
+      }
+    }
+    getUserKey()
+  }, [])
+
   const updateSettings = <Key extends keyof ModelSettings>(key: Key, value: ModelSettings[Key]) => {
     setSettings((prev) => {
       return { ...prev, [key]: value }
@@ -45,6 +55,7 @@ export const SettingsDialog: React.FC<{
       return
     }
 
+    window.api.saveUserKey(apiKey).then().catch()
     setCustomSettings(settings)
     close()
     return
@@ -163,6 +174,7 @@ export const SettingsDialog: React.FC<{
               <span className="ml-2">Key: </span>
             </>
           }
+          type="password"
           placeholder={'sk-...'}
           value={apiKey}
           onChange={(e) => {

@@ -74,25 +74,4 @@ const OpenAIAgentService: AgentService = {
   createTasksAgent: createTasksAgent
 }
 
-const MockAgentService: AgentService = {
-  startGoalAgent: async (modelSettings, goal) => {
-    return await new Promise((resolve) => resolve(['Task 1']))
-  },
-
-  createTasksAgent: async (
-    modelSettings: ModelSettings,
-    goal: string,
-    tasks: string[],
-    lastTask: string,
-    result: string,
-    completedTasks: string[] | undefined
-  ) => {
-    return await new Promise((resolve) => resolve(['Task 4']))
-  },
-
-  executeTaskAgent: async (modelSettings: ModelSettings, goal: string, task: string) => {
-    return await new Promise((resolve) => resolve('Result: ' + task))
-  }
-}
-
-export default import.meta.env.VITE_FF_MOCK_MODE_ENABLED ? MockAgentService : OpenAIAgentService
+export default OpenAIAgentService

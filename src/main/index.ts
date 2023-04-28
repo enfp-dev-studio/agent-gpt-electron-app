@@ -1,13 +1,14 @@
-import { app, shell, BrowserWindow } from 'electron'
+import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { createAgent, getAllAgents } from '../preload/db'
 
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
+    width: 800,
+    height: 600,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
@@ -38,6 +39,13 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
+
+  ipcMain.handle('save-agent', async (_, name: string, goal: string, tasks: any[]) => {
+    return createAgent({ name, goal, tasks })
+  })
+  ipcMain.handle('get-all-agents', async () => {
+    return getAllAgents()
+  })
 }
 
 // This method will be called when Electron has finished
