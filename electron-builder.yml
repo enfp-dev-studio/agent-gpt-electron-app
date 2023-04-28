@@ -1,4 +1,4 @@
-appId: com.electron.app
+appId: com.enfpdev.agent-gpt-app
 productName: agent-gpt-app
 directories:
   buildResources: build
@@ -20,6 +20,11 @@ nsis:
   uninstallDisplayName: ${productName}
   createDesktopShortcut: always
 mac:
+  target: # for univeral
+    - target: 'default' # for univeral
+      arch: # for univeral
+        - x64 # for univeral
+        - arm64 # for univeral
   entitlementsInherit: build/entitlements.mac.plist
   extendInfo:
     - NSCameraUsageDescription: Application requests access to the device's camera.
@@ -27,17 +32,18 @@ mac:
     - NSDocumentsFolderUsageDescription: Application requests access to the user's Documents folder.
     - NSDownloadsFolderUsageDescription: Application requests access to the user's Downloads folder.
 dmg:
-  artifactName: ${name}-${version}.${ext}
+  artifactName: ${name}-${version}-${arch}.${ext}
 linux:
   target:
     - AppImage
     - snap
     - deb
-  maintainer: electronjs.org
-  category: Utility
+  maintainer: https://github.com/enfp-dev-studio
+  category: Productivity
 appImage:
   artifactName: ${name}-${version}.${ext}
 npmRebuild: false
 publish:
-  provider: generic
-  url: https://example.com/auto-updates
+  provider: github
+  owner: enfp-dev-studio
+  repo: agent-gpt-electron-app

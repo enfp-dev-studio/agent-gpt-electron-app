@@ -17,6 +17,7 @@
     "postinstall": "electron-builder install-app-deps",
     "build:win": "npm run build && electron-builder --win --config",
     "build:mac": "electron-vite build && electron-builder --mac --config",
+    "clean:db": "npx prisma db push --force-reset",
     "build:linux": "electron-vite build && electron-builder --linux --config"
   },
   "dependencies": {
