@@ -22,7 +22,7 @@ const Home = () => {
   const { settings, saveSettings } = useSettings()
   const [shouldAgentStop, setShouldAgentStop] = React.useState(false)
   const [messages, setMessages] = React.useState<Message[]>([])
-  const [showHelpDialog, setShowHelpDialog] = React.useState(false)
+  // const [showHelpDialog, setShowHelpDialog] = React.useState(false)
   const [showSettingsDialog, setShowSettingsDialog] = React.useState(false)
   const [hasSaved, setHasSaved] = React.useState(false)
   const { saveAgent } = useAgent()
@@ -137,7 +137,7 @@ const Home = () => {
                 // showDonation={status != 'loading' && !session?.user.subscriptionId}
                 onSave={
                   shouldShowSave
-                    ? (format) => {
+                    ? () => {
                         setHasSaved(true)
                         saveAgent({
                           goal: goalInput.trim(),

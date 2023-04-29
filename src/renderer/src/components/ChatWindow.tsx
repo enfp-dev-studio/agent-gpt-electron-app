@@ -7,6 +7,8 @@ import {
   FaImage,
   FaListAlt,
   FaPlayCircle,
+  FaQuestion,
+  FaRegSun,
   FaSave,
   FaStar
 } from 'react-icons/fa'
@@ -328,6 +330,10 @@ const getMessageIcon = (message: Message) => {
       return <FaBrain className="mt-[0.1em] text-pink-400" />
     case 'action':
       return <FaPlayCircle className="text-green-500" />
+    case 'system':
+      return <FaRegSun className="text-yellow-300" />
+    default:
+      return <FaQuestion className="text-yellow-300" />
   }
 }
 
@@ -341,6 +347,8 @@ const getMessagePrefix = (message: Message) => {
       return 'Thinking...'
     case 'action':
       return message.info ? message.info : 'Executing:'
+    case 'system':
+      return 'System:'
   }
 }
 

@@ -10,7 +10,7 @@ interface MenuProps {
   styleClass?: { [key: string]: string };
 }
 
-function Menu({ name, items, disabled, onChange, styleClass }: MenuProps) {
+function Menu({ name, items, styleClass }: MenuProps) {
   return (
     <MenuPrimitive>
       <div className={styleClass?.container}>

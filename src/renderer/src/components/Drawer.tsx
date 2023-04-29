@@ -1,24 +1,29 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'wouter'
-import { FaBars, FaCog, FaGithub, FaQuestionCircle, FaRobot } from 'react-icons/fa'
+import { FaBars, FaCog, FaGithub, FaRobot } from 'react-icons/fa'
 import clsx from 'clsx'
+import { useAgent } from '@renderer/hooks/useAgent'
+import { useAtom } from 'jotai'
+import { RouteState, routeAtom } from '@renderer/utils/routes'
 
 const Drawer = ({ showSettings }: { showSettings: () => void }) => {
+  const [, setRouteState] = useAtom(routeAtom)
+
   const [agents, setAgents] = useState<any[]>([])
   const [showDrawer, setShowDrawer] = useState(false)
-  const [, navigate] = useLocation()
+  const { allAgentsObservable } = useAgent()
 
   const toggleDrawer = () => {
     setShowDrawer((prevState) => !prevState)
   }
 
   useEffect(() => {
-    const getAgents = async () => {
-      console.log(window.electron)
-      const agents = await window.api.getAllAgents()
-      setAgents(agents)
+    const subscription = allAgentsObservable.subscribe({
+      next: (allAgents) => setAgents(allAgents),
+      error: (error) => console.error(error)
+    })
+    return () => {
+      subscription.unsubscribe()
     }
-    getAgents()
   }, [])
 
   return (
@@ -56,7 +61,15 @@ const Drawer = ({ showSettings }: { showSettings: () => void }) => {
                 icon={<FaRobot />}
                 text={agent.name}
                 className="w-full"
-                onClick={() => void navigate(`/agent?id=${agent.id}`)}
+                onClick={() => {
+                  setRouteState((prevState: RouteState) => ({
+                    ...prevState,
+                    route: 'agent',
+                    params: {
+                      id: agent.id
+                    }
+                  }))
+                }}
               />
             ))}
 

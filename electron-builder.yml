@@ -26,6 +26,7 @@ mac:
         - x64 # for univeral
         - arm64 # for univeral
   entitlementsInherit: build/entitlements.mac.plist
+  provisioningProfile: embedded.provisionprofile # sign and notarize for github release
   extendInfo:
     - NSCameraUsageDescription: Application requests access to the device's camera.
     - NSMicrophoneUsageDescription: Application requests access to the device's microphone.
@@ -38,7 +39,7 @@ linux:
     - AppImage
     - snap
     - deb
-  maintainer: https://github.com/enfp-dev-studio
+  maintainer: ENFP-Dev-Studio
   category: Productivity
 appImage:
   artifactName: ${name}-${version}.${ext}
